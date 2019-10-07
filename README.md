@@ -56,8 +56,8 @@ print(portfolio.data)
 ```
 ```{r, engine='python', count_lines}
   stock_name stock_country purchase_date  num_of_shares  cost_per_share  current_price  gross_current_value  
-0       bbva         spain    04/01/2018              2             7.2          4.597                9.194
-1     endesa         spain    13/06/2019             15            23.8         23.890              358.350
+0       bbva         spain    04/01/2018              2             7.2          4.597                9.194  
+1     endesa         spain    13/06/2019             15            23.8         23.890              358.350  
 ```
 
 ## Contribute
