@@ -14,6 +14,7 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
@@ -26,6 +27,10 @@ release = '0.1'
 
 
 # -- General configuration ---------------------------------------------------
+
+# If your documentation needs a minimal Sphinx version, state it here.
+
+needs_sphinx = '1.3'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -50,7 +55,10 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
+
+# Add any paths that contain custom themes here, relative to this directory.
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 html_sidebars = {
     "**": [
@@ -58,16 +66,6 @@ html_sidebars = {
         'globaltoc.html',
         'searchbox.html',
     ]
-}
-
-html_theme_options = {
-    'description': 'Python package to generate stock portfolios.',
-    'github_user': 'alvarob96',
-    'github_repo': 'investpy_portfolio',
-    'github_button': True,
-    'github_type': 'star',
-    'github_count': True,
-    'github_banner': True,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
