@@ -12,6 +12,9 @@ from .Stock import Stock
 
 
 class StockPortfolio(object):
+    """
+    This class ...
+    """
 
     def __init__(self):
         self.stocks = list()

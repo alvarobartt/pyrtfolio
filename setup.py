@@ -13,15 +13,15 @@ def readme():
 
 
 setup(
-    name='investpy-portfolio',
+    name='investpy_portfolio',
     version='0.1',
     packages=find_packages(),
-    url='https://investpy-portfolio.readthedocs.io/',
-    download_url='https://github.com/alvarob96/investpy-portfolio/archive/0.1.tar.gz',
+    url='https://investpy_portfolio.readthedocs.io/',
+    download_url='https://github.com/alvarob96/investpy_portfolio/archive/0.1.tar.gz',
     license='GNU General Public License v3 (GPLv3)',
     author='Alvaro Bartolome',
     author_email='alvarob96@usal.es',
-    description='investpy-portfolio - an investpy module to create custom stock portfolios',
+    description='investpy_portfolio - an investpy module to create custom stock portfolios',
     long_description=readme(),
     long_description_content_type='text/markdown',
     install_requires=[
@@ -48,8 +48,8 @@ setup(
     keywords='investing, investing-api, investpy, financial-data, stocks, portfolio',
     python_requires='>=3',
     project_urls={
-        'Bug Reports': 'https://github.com/alvarob96/investpy-portfolio/issues',
-        'Source': 'https://github.com/alvarob96/investpy-portfolio',
-        'Documentation': 'https://investpy-portfolio.readthedocs.io/'
+        'Bug Reports': 'https://github.com/alvarob96/investpy_portfolio/issues',
+        'Source': 'https://github.com/alvarob96/investpy_portfolio',
+        'Documentation': 'https://investpy_portfolio.readthedocs.io/'
     },
 )

@@ -9,6 +9,9 @@ import investpy
 
 
 class Stock(object):
+    """
+    This class ...
+    """
 
     def __init__(self, stock_name, stock_country, purchase_date, num_of_shares, cost_per_share):
         self.stock_name = stock_name
@@ -23,6 +26,7 @@ class Stock(object):
         """
         This function ...
         """
+
         if not isinstance(self.stock_name, str):
             return
         if not isinstance(self.stock_country, str):
