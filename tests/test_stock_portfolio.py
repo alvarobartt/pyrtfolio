@@ -35,7 +35,9 @@ def test_stock_portfolio():
                         num_of_shares=15,
                         cost_per_share=23.8)
 
-    portfolio.data.head()
+    print(portfolio.data.head())
+    portfolio.refresh()
+    print(portfolio.data.head())
 
 
 if __name__ == '__main__':

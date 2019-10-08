@@ -21,6 +21,8 @@ class StockPortfolio(object):
     Attributes:
         stocks (:obj:`list`):
             this list contains all the introduced stocks, which will later be used to generate the portfolio.
+        stock_objs (:obj:`list`):
+            this list contains all the introduced Stock objects, in order to be able to refresh them.
         data (:obj:`pandas.DataFrame`): it is the generated portfolio, once the addition of every stock is validated.
 
     """
@@ -30,13 +32,12 @@ class StockPortfolio(object):
 
         This method is the init method of this class, StockPortfolio, and its main function is to init all the
         attributes contained in it. Every time this class is instanced, the attributes values are restored and, so on,
-        the portfolio's data is lost if existing for that instance.
-
-        Note:
-            This class does not take any parameters since they are filled once the class is instanced.
+        the portfolio's data is lost if existing for that instance. This class does not take any parameters since 
+        they are filled once the class is instanced.
 
         """
         self.stocks = list()
+        self.stock_objs = list()
         self.data = None
 
     def add_stock(self, stock_name, stock_country, purchase_date, num_of_shares, cost_per_share):
@@ -60,27 +61,66 @@ class StockPortfolio(object):
         stock.validate()
 
         if stock.valid is True:
-            data = investpy.get_historical_data(equity=stock_name,
-                                                country=stock_country,
-                                                from_date=purchase_date,
-                                                to_date=date.today().strftime("%d/%m/%Y"))
+            self.stock_objs.append(stock)
 
-            curr_price = self.current_price(data=data)
+            info = self.__get_stock_info(stock=stock)
 
-            obj = {
-                'stock_name': stock_name,
-                'stock_country': stock_country,
-                'purchase_date': purchase_date,
-                'num_of_shares': num_of_shares,
-                'cost_per_share': cost_per_share,
-                'current_price': curr_price,
-                'gross_current_value': self.gross_current_value(current_price=curr_price, num_of_shares=num_of_shares),
-            }
-
-            self.stocks.append(obj)
+            self.stocks.append(info)
             self.data = pd.DataFrame(self.stocks)
         else:
             raise ValueError("ERROR [0001]: The introduced Stock is not valid.")
+
+    def __get_stock_info(self, stock):
+        """ Method to get the stock information once it is validated.
+        
+        This method retrieves the historical data of the introduced Stock in order to get its current 
+        price which will be used for the required calculations to generate the StockPortfolio. So on,
+        this function is both going to retrieve Stock data and calculate the required values for the 
+        StockPortfolio.
+
+        Args:
+            stock_name (:obj:`investpy_portfolio.Stock`): Stock object with all its information after validated.
+
+        Returns:
+            :obj:`dict` - stock_information:
+                Returns a :obj:`dict` which contains all the values from the introduced Stock in order to create its
+                portfolio row.
+
+        """
+        data = investpy.get_historical_data(equity=stock.stock_name,
+                                            country=stock.stock_country,
+                                            from_date=stock.purchase_date,
+                                            to_date=date.today().strftime("%d/%m/%Y"))
+
+        curr_price = self.current_price(data=data)
+
+        info = {
+            'stock_name': stock.stock_name,
+            'stock_country': stock.stock_country,
+            'purchase_date': stock.purchase_date,
+            'num_of_shares': stock.num_of_shares,
+            'cost_per_share': stock.cost_per_share,
+            'current_price': curr_price,
+            'gross_current_value': self.gross_current_value(current_price=curr_price, num_of_shares=stock.num_of_shares),
+        }
+
+        return info
+
+    def refresh(self):
+        """ Method to refresh/reload the StockPortfolio information.
+        
+        This method is used to refresh or reload the StockPortfolio information since the values may have changed
+        since the last time the portfolio was generated. So on, this function will return to get the information
+        from every Stock listed in the StockPortfolio.
+
+        """
+        if len(self.stock_objs) > 0:
+            self.stocks = list()
+            for stock_obj in self.stock_objs:
+                info = self.__get_stock_info(stock=stock_obj)
+                self.stocks.append(info)
+            self.data = pd.DataFrame(self.stocks)
+
 
     @staticmethod
     def current_price(data):
@@ -97,4 +137,4 @@ class StockPortfolio(object):
         which is the result of the multiplication of the current price with the number of bought shares.
         """
         return float(current_price * num_of_shares)
-
+    
