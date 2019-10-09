@@ -36,8 +36,8 @@ class StockPortfolio(object):
         they are filled once the class is instanced.
 
         """
-        self.stocks = list()
-        self.stock_objs = list()
+        self._stocks = list()
+        self._stock_objs = list()
         self.data = None
 
     def add_stock(self, stock_name, stock_country, purchase_date, num_of_shares, cost_per_share):
@@ -61,12 +61,12 @@ class StockPortfolio(object):
         stock.validate()
 
         if stock.valid is True:
-            self.stock_objs.append(stock)
+            self._stock_objs.append(stock)
 
             info = self.__get_stock_info(stock=stock)
 
-            self.stocks.append(info)
-            self.data = pd.DataFrame(self.stocks)
+            self._stocks.append(info)
+            self.data = pd.DataFrame(self._stocks)
         else:
             raise ValueError("ERROR [0001]: The introduced Stock is not valid.")
 
@@ -94,6 +94,9 @@ class StockPortfolio(object):
 
         curr_price = self.current_price(data=data)
 
+        """ dividends = investpy.get_stock_dividends(stock=stock.stock_symbol, 
+                                                 country=stock.stock_country) """
+
         info = {
             'stock_name': stock.stock_name,
             'stock_country': stock.stock_country,
@@ -114,12 +117,12 @@ class StockPortfolio(object):
         from every Stock listed in the StockPortfolio.
 
         """
-        if len(self.stock_objs) > 0:
-            self.stocks = list()
-            for stock_obj in self.stock_objs:
+        if len(self._stock_objs) > 0:
+            self._stocks = list()
+            for stock_obj in self._stock_objs:
                 info = self.__get_stock_info(stock=stock_obj)
-                self.stocks.append(info)
-            self.data = pd.DataFrame(self.stocks)
+                self._stocks.append(info)
+            self.data = pd.DataFrame(self._stocks)
 
 
     @staticmethod
