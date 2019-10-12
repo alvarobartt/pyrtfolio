@@ -19,9 +19,9 @@ class StockPortfolio(object):
     basic portfolio and, as already mentioned, the method to add stocks.
 
     Attributes:
-        stocks (:obj:`list`):
+        stocks (:obj:`list`, protected):
             this list contains all the introduced stocks, which will later be used to generate the portfolio.
-        stock_objs (:obj:`list`):
+        stock_objs (:obj:`list`, protected):
             this list contains all the introduced Stock objects, in order to be able to refresh them.
         data (:obj:`pandas.DataFrame`): it is the generated portfolio, once the addition of every stock is validated.
 
@@ -40,7 +40,7 @@ class StockPortfolio(object):
         self._stock_objs = list()
         self.data = None
 
-    def add_stock(self, stock_name, stock_country, purchase_date, num_of_shares, cost_per_share):
+    def add_stock(self, stock_symbol, stock_country, purchase_date, num_of_shares, cost_per_share):
         """ Method to add a stock to the portfolio.
 
         This method adds a stock to the custom portfolio data. Some parameters need to be specified for the introduced
@@ -49,15 +49,15 @@ class StockPortfolio(object):
         the user an overview of his/her own portfolio.
 
         Args:
-            stock_name (:obj:`str`): name of the Stock that is going to be added to the StockPortfolio.
-            stock_country (:obj:`str`): country from where the specified stock_name is, so to validate it.
+            stock_symbol (:obj:`str`): symbol of the Stock that is going to be added to the StockPortfolio.
+            stock_country (:obj:`str`): country from where the specified stock_symbol is, so to validate it.
             purchase_date (:obj:`str`):
                 date when the shares of the introduced stock were bought, formatted as dd/mm/yyyy.
             num_of_shares (:obj:`int`): amount of shares bought of the specified Stock in the specified date.
             cost_per_share (:obj:`float`): price of every share of the Stock in the specified date.
 
         """
-        stock = Stock(stock_name, stock_country, purchase_date, num_of_shares, cost_per_share)
+        stock = Stock(stock_symbol, stock_country, purchase_date, num_of_shares, cost_per_share)
         stock.validate()
 
         if stock.valid is True:
@@ -79,7 +79,7 @@ class StockPortfolio(object):
         StockPortfolio.
 
         Args:
-            stock_name (:obj:`investpy_portfolio.Stock`): Stock object with all its information after validated.
+            stock (:obj:`investpy_portfolio.Stock`): Stock object with all its information after validated.
 
         Returns:
             :obj:`dict` - stock_information:
@@ -87,24 +87,60 @@ class StockPortfolio(object):
                 portfolio row.
 
         """
-        data = investpy.get_historical_data(equity=stock.stock_name,
-                                            country=stock.stock_country,
-                                            from_date=stock.purchase_date,
-                                            to_date=date.today().strftime("%d/%m/%Y"))
+        stocks = investpy.get_stocks(country=stock.stock_country)
 
-        curr_price = self.current_price(data=data)
+        stock_name = stocks.loc[(stocks['symbol'].str.lower() == stock.stock_symbol.lower()).idxmax(), 'name']
+        
+        data = investpy.get_stock_historical_data(stock=stock.stock_symbol,
+                                                  country=stock.stock_country,
+                                                  from_date=stock.purchase_date,
+                                                  to_date=date.today().strftime("%d/%m/%Y"))
 
-        """ dividends = investpy.get_stock_dividends(stock=stock.stock_symbol, 
-                                                 country=stock.stock_country) """
+        currency = data['Currency'][0]
+
+        purchase_cost = self.calculate_purchase_cost(cost_per_share=stock.cost_per_share,
+                                                     num_of_shares=stock.num_of_shares)
+
+        current_price = self.get_current_price(data=data)
+
+        gross_current_value = self.calculate_gross_current_value(current_price=current_price,
+                                                                 num_of_shares=stock.num_of_shares)
+
+        dividends = investpy.get_stock_dividends(stock=stock.stock_symbol, 
+                                                 country=stock.stock_country)
+
+        dividends = dividends.loc[dividends['Payment Date'] < pd.to_datetime(stock.purchase_date, dayfirst=True)].reset_index(drop=True)
+
+        if len(dividends) > 0:
+            total_dividends = self.calculate_total_dividends(dividends=dividends,
+                                                             num_of_shares=stock.num_of_shares)
+        else:
+            total_dividends = 0
+
+        net_current_value = self.calculate_net_current_value(gross_current_value=gross_current_value,
+                                                             total_dividends=total_dividends)
+
+        total_gain_loss = self.calculate_total_gain_loss(net_current_value=net_current_value,
+                                                         purchase_cost=purchase_cost)
+
+        total_gain_loss_percentage = self.calculate_total_gain_loss_percentage(total_gain_loss=total_gain_loss,
+                                                                               purchase_cost=purchase_cost)
 
         info = {
-            'stock_name': stock.stock_name,
+            'stock_symbol': stock.stock_symbol,
+            'stock_name': stock_name,
             'stock_country': stock.stock_country,
+            'stock_currency': currency,
             'purchase_date': stock.purchase_date,
             'num_of_shares': stock.num_of_shares,
             'cost_per_share': stock.cost_per_share,
-            'current_price': curr_price,
-            'gross_current_value': self.gross_current_value(current_price=curr_price, num_of_shares=stock.num_of_shares),
+            'purchase_cost': purchase_cost,
+            'current_price': current_price,
+            'gross_current_value': gross_current_value,
+            'total_dividends': total_dividends,
+            'net_current_value': net_current_value,
+            'total_gain_loss': total_gain_loss,
+            'total_gain_loss_percentage': total_gain_loss_percentage,
         }
 
         return info
@@ -124,9 +160,16 @@ class StockPortfolio(object):
                 self._stocks.append(info)
             self.data = pd.DataFrame(self._stocks)
 
+    @staticmethod
+    def calculate_purchase_cost(cost_per_share, num_of_shares):
+        """
+        This method calculates the purchase cost, which is the paid value for every stock share hold by the user at
+        the time that stock shares were bought.
+        """
+        return float(cost_per_share * num_of_shares)
 
     @staticmethod
-    def current_price(data):
+    def get_current_price(data):
         """
         This method gets the current price value of the introduced stock, which is the last close value indexed in the
         :obj:`pandas.DataFrame`.
@@ -134,10 +177,45 @@ class StockPortfolio(object):
         return data.iloc[-1]['Close']
 
     @staticmethod
-    def gross_current_value(current_price, num_of_shares):
+    def calculate_gross_current_value(current_price, num_of_shares):
         """
         This method calculates the gross current value which is the total current value of the shares bought,
         which is the result of the multiplication of the current price with the number of bought shares.
         """
         return float(current_price * num_of_shares)
     
+    @staticmethod
+    def calculate_total_dividends(dividends, num_of_shares):
+        """
+        This method calculates the total dividend's value which is the sum of all the dividends paid in the time
+        range that the user owned/owns the stock shares. Each dividend is paid per the number of stock shares hold
+        by the user.
+        """
+        total_dividends = 0
+        for _, dividend in dividends.iterrows():
+                total_dividends += (dividend['Dividend'] * num_of_shares)
+        return total_dividends
+
+    @staticmethod
+    def calculate_net_current_value(gross_current_value, total_dividends):
+        """
+        This method calculates the net current value which is the total of the gross current value and the value of 
+        the dividends, i.e., the total of returns from both capital gains and dividends.
+        """
+        return gross_current_value + total_dividends
+
+    @staticmethod
+    def calculate_total_gain_loss(net_current_value, purchase_cost):
+        """
+        This method calculates the difference between the current value of the stock shares, including the dividends
+        received, with the value that the user paid of them.
+        """
+        return net_current_value - purchase_cost
+
+    @staticmethod
+    def calculate_total_gain_loss_percentage(total_gain_loss, purchase_cost):
+        """
+        This method compares the stock total gain loss to what the user paid for the stock shares owned and the result
+        is a percentage that can show the total stock performance.
+        """
+        return str(total_gain_loss / purchase_cost) + "%"

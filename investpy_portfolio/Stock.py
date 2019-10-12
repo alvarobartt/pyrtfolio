@@ -16,8 +16,8 @@ class Stock(object):
     if the introduced Stock is not valid.
 
     Attributes:
-        stock_name (:obj:`str`): name of the Stock that is going to be added to the StockPortfolio.
-        stock_country (:obj:`str`): country from where the specified stock_name is, so to validate it.
+        stock_symbol (:obj:`str`): symbol of the Stock that is going to be added to the StockPortfolio.
+        stock_country (:obj:`str`): country from where the specified stock_symbol is, so to validate it.
         purchase_date (:obj:`str`):
             date when the shares of the introduced stock were bought, formatted as dd/mm/yyyy.
         num_of_shares (:obj:`int`): amount of shares bought of the specified Stock in the specified date.
@@ -26,7 +26,7 @@ class Stock(object):
 
     """
 
-    def __init__(self, stock_name, stock_country, purchase_date, num_of_shares, cost_per_share):
+    def __init__(self, stock_symbol, stock_country, purchase_date, num_of_shares, cost_per_share):
         """ This is the init method of Stock class which is launched every time the user instances it.
 
         This method is the init method of this class, Stock, and its main function is to init all the attributes
@@ -35,15 +35,15 @@ class Stock(object):
         function is called, since it is the main function of this class, validating Stocks.
 
         Args:
-            stock_name (:obj:`str`): name of the Stock that is going to be added to the StockPortfolio.
-            stock_country (:obj:`str`): country from where the specified stock_name is, so to validate it.
+            stock_symbol (:obj:`str`): symbol of the Stock that is going to be added to the StockPortfolio.
+            stock_country (:obj:`str`): country from where the specified stock_symbol is, so to validate it.
             purchase_date (:obj:`str`):
                 date when the shares of the introduced stock were bought, formatted as dd/mm/yyyy.
             num_of_shares (:obj:`int`): amount of shares bought of the specified Stock in the specified date.
             cost_per_share (:obj:`float`): price of every share of the Stock in the specified date.
 
         """
-        self.stock_name = stock_name
+        self.stock_symbol = stock_symbol
         self.stock_country = stock_country
         self.purchase_date = purchase_date
         self.num_of_shares = num_of_shares
@@ -61,8 +61,8 @@ class Stock(object):
         not, respectively.
 
         """
-        if not isinstance(self.stock_name, str):
-            raise ValueError("ERROR [0005]: The introduced stock_name is mandatory and should be a str.")
+        if not isinstance(self.stock_symbol, str):
+            raise ValueError("ERROR [0005]: The introduced stock_symbol is mandatory and should be a str.")
 
         if not isinstance(self.stock_country, str):
             raise ValueError("ERROR [0006]: The introduced stock_country is mandatory and should be a str.")
@@ -92,31 +92,34 @@ class Stock(object):
             if self.cost_per_share <= 0:
                 raise ValueError("ERROR [0010]: The introduced Stock is not valid.")
 
-        stock_countries = investpy.get_equity_countries()
+        stock_countries = investpy.get_stock_countries()
 
         if self.stock_country.lower() in stock_countries:
-            stocks = investpy.get_equities(country=self.stock_country)
+            stocks = investpy.get_stocks(country=self.stock_country)
 
-            search_results = stocks[stocks['name'].str.lower() == self.stock_name.lower()]
+            search_results = stocks[stocks['symbol'].str.lower() == self.stock_symbol.lower()]
 
             if len(search_results) > 0:
-                data = investpy.get_historical_data(equity=self.stock_name,
-                                                    country=self.stock_country,
-                                                    from_date=self.purchase_date,
-                                                    to_date=datetime.date.today().strftime("%d/%m/%Y"))
+                data = investpy.get_stock_historical_data(stock=self.stock_symbol,
+                                                          country=self.stock_country,
+                                                          from_date=self.purchase_date,
+                                                          to_date=datetime.date.today().strftime("%d/%m/%Y"))
 
                 try:
                     purchase_date_ = purchase_date_.strftime("%Y-%m-%d")
-                    open_value = data.loc[purchase_date_]['Open']
-                    close_value = data.loc[purchase_date_]['Close']
+                    min_value = data.loc[purchase_date_]['Low']
+                    max_value = data.loc[purchase_date_]['High']
                 except KeyError:
                     raise KeyError("ERROR [0004]: The introduced purchase_date is not valid since the market was "
                                    "closed.")
 
-                if open_value <= self.cost_per_share <= close_value:
+                if min_value <= self.cost_per_share <= max_value:
                     self.valid = True
+                else:
+                    raise ValueError("ERROR [0011]: The introduced value is not possible, because the range stock "
+                                     "values of the purchase data were between " + str(min_value) + " and " + str(max_value))
             else:
-                raise ValueError("ERROR [0003]: No results were found for the introduced stock_name in the specified "
+                raise ValueError("ERROR [0003]: No results were found for the introduced stock_symbol in the specified "
                                  "stock_country.")
         else:
             raise ValueError("ERROR [0002]: The introduced stock_country is not valid or does not have any indexed "

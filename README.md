@@ -1,4 +1,4 @@
-# investpy_portfolio - is a Python package to generate stock portfolios
+# investpy_portfolio - Python package to generate stock portfolios
 
 [![Python Version](https://img.shields.io/pypi/pyversions/investpy_portfolio.svg)](https://pypi.org/project/investpy_portfolio/)
 [![PyPi Version](https://img.shields.io/pypi/v/investpy_portfolio.svg)](https://pypi.org/project/investpy_portfolio/)
@@ -21,7 +21,7 @@ number of bought shares, etc.
 In order to get this package working you will need to install **investpy_portfolio** via pip by typing the following 
 command in the terminal:
 
-``$ pip install investpy_portfolio==0.1``
+``$ pip install investpy_portfolio==0.2``
 
 Every package used is listed in [requirements.txt](https://github.com/alvarob96/investpy_portfolio/blob/master/requirements.txt) 
 file, which can also be installed via pip:
@@ -39,13 +39,13 @@ from investpy_portfolio.StockPortfolio import StockPortfolio
 
 portfolio = StockPortfolio()
 
-portfolio.add_stock(stock_name='bbva',
+portfolio.add_stock(stock_symbol='BBVA',
                     stock_country='spain',
                     purchase_date='04/01/2018',
                     num_of_shares=2,
                     cost_per_share=7.2)
 
-portfolio.add_stock(stock_name='endesa',
+portfolio.add_stock(stock_aymbol='ELE',
                     stock_country='spain',
                     purchase_date='13/06/2019',
                     num_of_shares=15,
@@ -54,9 +54,9 @@ portfolio.add_stock(stock_name='endesa',
 print(portfolio.data)
 ```
 ```{r, engine='python', count_lines}
-  stock_name stock_country purchase_date  num_of_shares  cost_per_share  current_price  gross_current_value  
-0       bbva         spain    04/01/2018              2             7.2          4.597                9.194  
-1     endesa         spain    13/06/2019             15            23.8         23.890              358.350  
+  stock_symbol stock_name stock_country stock_currency purchase_date  num_of_shares  ...  current_price  gross_current_value  total_dividends  net_current_value  total_gain_loss  total_gain_loss_percentage
+0         BBVA       BBVA         spain            EUR    04/01/2018              2  ...          4.716                9.432           5.8788            15.3108           0.9108                    0.06325%
+1          ELE     Endesa         spain            EUR    13/06/2019             15  ...         23.500              352.500         326.0250           678.5250         321.5250         0.9006302521008402%
 ```
 
 ## Contribute
