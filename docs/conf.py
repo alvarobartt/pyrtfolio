@@ -23,7 +23,7 @@ copyright = '2019, Alvaro Bartolome'
 author = 'Alvaro Bartolome'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '0.3'
 
 
 # -- General configuration ---------------------------------------------------

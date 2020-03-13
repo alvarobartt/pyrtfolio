@@ -1,7 +1,7 @@
 Usage
 =====
 
-**pyrtfolio** usage is pretty simple, since until the current release (0.2), just the StockPortfolios are
+**pyrtfolio** usage is pretty simple, since until the current release (0.3), just the StockPortfolios are
 available with the basic data. So on, the one and only usage that can be currently done with this package consists on
 generating portfolios for the introduced stocks.
 
