@@ -193,7 +193,7 @@ class StockPortfolio(object):
         """
         total_dividends = 0
         for _, dividend in dividends.iterrows():
-                total_dividends += (dividend['Dividend'] * num_of_shares)
+            total_dividends += (dividend['Dividend'] * num_of_shares)
         return total_dividends
 
     @staticmethod

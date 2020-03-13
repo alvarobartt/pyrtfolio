@@ -11,6 +11,13 @@ def readme():
     with io.open('README.md', encoding='utf-8') as f:
         return f.read()
 
+def requirements():
+    reqs = list()
+    with io.open(filename, encoding='utf-8') as f:
+        for line in f.readlines():
+            reqs.append(line.strip())
+    return reqs
+
 
 setup(
     name='pyrtfolio',
@@ -24,11 +31,7 @@ setup(
     description='pyrtfolio - Python package to generate stock portfolios',
     long_description=readme(),
     long_description_content_type='text/markdown',
-    install_requires=[
-        'pandas>=0.25.1',
-        'setuptools>=41.2.0',
-        'investpy==0.9.7'
-    ],
+    install_requires=requirements(),
     data_files=[],
     include_package_data=True,
     classifiers=[
@@ -37,6 +40,7 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Intended Audience :: Developers",
         "Topic :: Office/Business :: Financial",
