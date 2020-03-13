@@ -21,7 +21,7 @@ number of bought shares, etc.
 In order to get this package working you will need to install **pyrtfolio** via pip by typing the following 
 command in the terminal:
 
-``$ pip install pyrtfolio==0.3``
+``$ pip install pyrtfolio==0.4``
 
 Every package used is listed in [requirements.txt](https://github.com/alvarobartt/pyrtfolio/blob/master/requirements.txt) 
 file, which can also be installed via pip:

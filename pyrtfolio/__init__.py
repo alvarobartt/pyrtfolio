@@ -2,6 +2,6 @@
 # See LICENSE for details.
 
 __author__ = "Alvaro Bartolome @ alvarobartt in GitHub"
-__version__ = "0.3"
+__version__ = "0.4"
 
 from pyrtfolio.StockPortfolio import StockPortfolio
