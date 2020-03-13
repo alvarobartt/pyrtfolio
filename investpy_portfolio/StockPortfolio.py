@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright 2019 Alvaro Bartolome @ alvarob96 in GitHub
+# Copyright 2019 Alvaro Bartolome @ alvarobartt in GitHub
 # See LICENSE for details.
 
 from datetime import date
@@ -8,11 +8,11 @@ from datetime import date
 import investpy
 import pandas as pd
 
-from investpy_portfolio.Stock import Stock
+from pyrtfolio.Stock import Stock
 
 
 class StockPortfolio(object):
-    """ StockPortfolio is the main class of `investpy_portfolio` which is going to manage all the introduced stocks.
+    """ StockPortfolio is the main class of `pyrtfolio` which is going to manage all the introduced stocks.
 
     This class is the one that contains the stocks information and the one that will be used by the user in order to
     generate a custom portfolio. So on, this function implements the methods to calculate all the values required in a
@@ -79,7 +79,7 @@ class StockPortfolio(object):
         StockPortfolio.
 
         Args:
-            stock (:obj:`investpy_portfolio.Stock`): Stock object with all its information after validated.
+            stock (:obj:`pyrtfolio.Stock`): Stock object with all its information after validated.
 
         Returns:
             :obj:`dict` - stock_information:

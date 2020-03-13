@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-# Copyright 2019 Alvaro Bartolome @ alvarob96 in GitHub
+# Copyright 2019 Alvaro Bartolome @ alvarobartt in GitHub
 # See LICENSE for details.
 
-from investpy_portfolio.StockPortfolio import StockPortfolio
+from pyrtfolio.StockPortfolio import StockPortfolio
 
 
 def test_stock_portfolio_errors():

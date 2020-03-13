@@ -1,4 +1,4 @@
-name: investpy_portfolio
+name: pyrtfolio
 
 on: [push]
 

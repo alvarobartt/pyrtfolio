@@ -18,7 +18,7 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'investpy_portfolio'
+project = 'pyrtfolio'
 copyright = '2019, Alvaro Bartolome'
 author = 'Alvaro Bartolome'
 

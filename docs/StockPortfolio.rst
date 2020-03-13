@@ -1,7 +1,7 @@
-:mod:`investpy_portfolio.StockPortfolio`
+:mod:`pyrtfolio.StockPortfolio`
 ========================================
 
-.. automodule:: investpy_portfolio.StockPortfolio
+.. automodule:: pyrtfolio.StockPortfolio
    :special-members:
    :exclude-members:
    :members:

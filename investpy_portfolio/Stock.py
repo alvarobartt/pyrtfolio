@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright 2019 Alvaro Bartolome @ alvarob96 in GitHub
+# Copyright 2019 Alvaro Bartolome @ alvarobartt in GitHub
 # See LICENSE for details.
 
 import datetime
@@ -9,7 +9,7 @@ import investpy
 
 
 class Stock(object):
-    """ Stock is a support class of `investpy_portfolio` which validates the Stocks before adding them to StockPortfolio.
+    """ Stock is a support class of `pyrtfolio` which validates the Stocks before adding them to StockPortfolio.
 
     This class is a support class to validate the Stocks before finally adding them to the portfolio created in
     StockPortfolio since the historical data of the introduced Stock needs to be retrieved and, so on, it will error

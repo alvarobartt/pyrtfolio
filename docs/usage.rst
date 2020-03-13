@@ -1,16 +1,16 @@
 Usage
 =====
 
-**investpy_portfolio** usage is pretty simple, since until the current release (0.1), just the StockPortfolios are
+**pyrtfolio** usage is pretty simple, since until the current release (0.1), just the StockPortfolios are
 available with the basic data. So on, the one and only usage that can be currently done with this package consists on
 generating portfolios for the introduced stocks.
 
 An example will be presented below to show the user how to use the package to generate his/her custom stock portfolios.
 
-.. codeauthor:: Alvaro Bartolome @ alvarob96 in GitHub
+.. codeauthor:: Alvaro Bartolome @ alvarobartt in GitHub
 .. code-block:: python
 
-    from investpy_portfolio.StockPortfolio import StockPortfolio
+    from pyrtfolio.StockPortfolio import StockPortfolio
 
     portfolio = StockPortfolio()
 

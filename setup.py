@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright 2019 Alvaro Bartolome @ alvarob96 in GitHub
+# Copyright 2019 Alvaro Bartolome @ alvarobartt in GitHub
 # See LICENSE for details.
 
 from setuptools import setup, find_packages
@@ -13,15 +13,15 @@ def readme():
 
 
 setup(
-    name='investpy_portfolio',
+    name='pyrtfolio',
     version='0.2',
     packages=find_packages(),
-    url='https://investpy_portfolio.readthedocs.io/',
-    download_url='https://github.com/alvarob96/investpy_portfolio/archive/0.2.tar.gz',
+    url='https://pyrtfolio.readthedocs.io/',
+    download_url='https://github.com/alvarobartt/pyrtfolio/archive/0.2.tar.gz',
     license='GNU General Public License v3 (GPLv3)',
     author='Alvaro Bartolome',
-    author_email='alvarob96@usal.es',
-    description='investpy_portfolio - Python package to generate stock portfolios',
+    author_email='alvarobartt@usal.es',
+    description='pyrtfolio - Python package to generate stock portfolios',
     long_description=readme(),
     long_description_content_type='text/markdown',
     install_requires=[
@@ -46,8 +46,8 @@ setup(
     keywords='investing, investing-api, investpy, financial-data, stocks, portfolio',
     python_requires='>=3',
     project_urls={
-        'Bug Reports': 'https://github.com/alvarob96/investpy_portfolio/issues',
-        'Source': 'https://github.com/alvarob96/investpy_portfolio',
-        'Documentation': 'https://investpy_portfolio.readthedocs.io/'
+        'Bug Reports': 'https://github.com/alvarobartt/pyrtfolio/issues',
+        'Source': 'https://github.com/alvarobartt/pyrtfolio',
+        'Documentation': 'https://pyrtfolio.readthedocs.io/'
     },
 )

@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 
-# Copyright 2019 Alvaro Bartolome @ alvarob96 in GitHub
+# Copyright 2019 Alvaro Bartolome @ alvarobartt in GitHub
 # See LICENSE for details.
 
-import investpy_portfolio
-from investpy_portfolio.StockPortfolio import StockPortfolio
+import pyrtfolio
+from pyrtfolio.StockPortfolio import StockPortfolio
 
 
 def test_package():
     """
-    This function tests both the authorship and version of investpy_portfolio.
+    This function tests both the authorship and version of pyrtfolio.
     """
 
-    print(investpy_portfolio.__author__)
-    print(investpy_portfolio.__version__)
+    print(pyrtfolio.__author__)
+    print(pyrtfolio.__version__)
 
 
 def test_stock_portfolio():

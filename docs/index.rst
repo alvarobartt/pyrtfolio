@@ -1,9 +1,9 @@
-.. investpy_portfolio documentation master file, created by
+.. pyrtfolio documentation master file, created by
    sphinx-quickstart on Mon Oct  7 19:08:21 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to investpy_portfolio's documentation!
+Welcome to pyrtfolio's documentation!
 ==============================================
 
 .. toctree::
