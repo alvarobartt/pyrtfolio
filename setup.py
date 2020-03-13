@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright 2019 Alvaro Bartolome @ alvarobartt in GitHub
 # See LICENSE for details.
 
@@ -21,10 +19,10 @@ def requirements():
 
 setup(
     name='pyrtfolio',
-    version='0.2',
+    version='0.3',
     packages=find_packages(),
     url='https://pyrtfolio.readthedocs.io/',
-    download_url='https://github.com/alvarobartt/pyrtfolio/archive/0.2.tar.gz',
+    download_url='https://github.com/alvarobartt/pyrtfolio/archive/0.3.tar.gz',
     license='GNU General Public License v3 (GPLv3)',
     author='Alvaro Bartolome',
     author_email='alvarobartt@usal.es',

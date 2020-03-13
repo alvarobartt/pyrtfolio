@@ -3,10 +3,10 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/pyrtfolio.svg)](https://pypi.org/project/pyrtfolio/)
 [![PyPi Version](https://img.shields.io/pypi/v/pyrtfolio.svg)](https://pypi.org/project/pyrtfolio/)
 [![Package Status](https://img.shields.io/pypi/status/pyrtfolio.svg)](https://pypi.org/project/pyrtfolio/)
-[![Build Status](https://dev.azure.com/alvarob96/alvarob96/_apis/build/status/alvarob96.pyrtfolio?branchName=master)](https://dev.azure.com/alvarob96/alvarob96/_build?definitionId=1&_a=summary)
-[![Build Status](https://img.shields.io/travis/alvarob96/pyrtfolio/master.svg?label=Travis%20CI&logo=travis&logoColor=white)](https://travis-ci.org/alvarob96/pyrtfolio)
+[![Build Status](https://dev.azure.com/alvarobartt/alvarobartt/_apis/build/status/alvarobartt.pyrtfolio?branchName=master)](https://dev.azure.com/alvarobartt/alvarobartt/_build?definitionId=1&_a=summary)
+[![Build Status](https://img.shields.io/travis/alvarobartt/pyrtfolio/master.svg?label=Travis%20CI&logo=travis&logoColor=white)](https://travis-ci.org/alvarobartt/pyrtfolio)
 [![Documentation Status](https://readthedocs.org/projects/pyrtfolio/badge/?version=latest)](https://pyrtfolio.readthedocs.io/)
-[![codecov](https://codecov.io/gh/alvarob96/pyrtfolio/branch/master/graph/badge.svg)](https://codecov.io/gh/alvarob96/pyrtfolio)
+[![codecov](https://codecov.io/gh/alvarobartt/pyrtfolio/branch/master/graph/badge.svg)](https://codecov.io/gh/alvarobartt/pyrtfolio)
 
 ## Introduction
 
@@ -21,7 +21,7 @@ number of bought shares, etc.
 In order to get this package working you will need to install **pyrtfolio** via pip by typing the following 
 command in the terminal:
 
-``$ pip install pyrtfolio==0.2``
+``$ pip install pyrtfolio==0.3``
 
 Every package used is listed in [requirements.txt](https://github.com/alvarobartt/pyrtfolio/blob/master/requirements.txt) 
 file, which can also be installed via pip:
