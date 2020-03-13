@@ -13,7 +13,7 @@ def readme():
 
 def requirements():
     reqs = list()
-    with io.open(filename, encoding='utf-8') as f:
+    with io.open('requirements.txt', encoding='utf-8') as f:
         for line in f.readlines():
             reqs.append(line.strip())
     return reqs
