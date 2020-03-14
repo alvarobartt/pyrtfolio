@@ -36,6 +36,7 @@ class StockPortfolio(object):
         """
         self._stocks = list()
         self._stock_objs = list()
+        
         self.data = None
 
     def add_stock(self, stock_symbol, stock_country, purchase_date, num_of_shares, cost_per_share):
