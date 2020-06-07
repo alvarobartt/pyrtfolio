@@ -45,7 +45,7 @@ portfolio.add_stock(stock_symbol='BBVA',
                     num_of_shares=2,
                     cost_per_share=7.2)
 
-portfolio.add_stock(stock_symbol='ELE',
+portfolio.add_stock(stock_aymbol='ELE',
                     stock_country='spain',
                     purchase_date='13/06/2019',
                     num_of_shares=15,
