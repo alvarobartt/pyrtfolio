@@ -1,2 +1,2 @@
-pandas==0.25.3
-investpy==0.9.14
+pandas>=0.25.3
+investpy>=0.9.14
