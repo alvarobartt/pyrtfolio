@@ -25,7 +25,7 @@ setup(
     download_url='https://github.com/alvarobartt/pyrtfolio/archive/0.4.tar.gz',
     license='GNU General Public License v3 (GPLv3)',
     author='Alvaro Bartolome',
-    author_email='alvarobartt@usal.es',
+    author_email='alvarobartt@yahoo.com',
     description='pyrtfolio - Python package to generate stock portfolios',
     long_description=readme(),
     long_description_content_type='text/markdown',
