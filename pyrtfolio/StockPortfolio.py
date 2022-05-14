@@ -107,7 +107,7 @@ class StockPortfolio(object):
         dividends = investpy.get_stock_dividends(stock=stock.stock_symbol, 
                                                  country=stock.stock_country)
 
-        dividends = dividends.loc[dividends['Payment Date'] < pd.to_datetime(stock.purchase_date, dayfirst=True)].reset_index(drop=True)
+        dividends = dividends.loc[dividends['Date'] > pd.to_datetime(stock.purchase_date, dayfirst=True)].reset_index(drop=True)
 
         if len(dividends) > 0:
             total_dividends = self.calculate_total_dividends(dividends=dividends,
